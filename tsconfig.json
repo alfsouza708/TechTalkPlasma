@@ -1,0 +1,13 @@
+{
+	"extends": "./.nuxt/tsconfig.json",
+	"ts-node": {
+		"compilerOptions": {
+			"skipLibCheck": true,
+			"module": "CommonJS",
+			"types": ["unplugin-icons/types/vue"],
+			"paths": {
+				"@icons": ["~icons"]
+			}
+		}
+	}
+}

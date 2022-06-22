@@ -1,0 +1,13 @@
+schema: 'https://localhost:8080/graphql'
+documents: './graphql/**/*.gql'
+require:
+ - ts-node/register
+ - tsconfig-paths/register
+generates:
+ ./@types/generated.ts:
+  plugins:
+   - typescript
+   - typescript-operations
+   - typescript-vue-apollo
+  config:
+   withSmartOperationFunctions: true

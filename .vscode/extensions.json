@@ -1,0 +1,14 @@
+{
+	"unwantedRecommendations": ["octref.vetur"],
+	"recommendations": [
+		"dbaeumer.vscode-eslint",
+		"graphql.vscode-graphql",
+		"esbenp.prettier-vscode",
+		"bradlc.vscode-tailwindcss",
+		"vue.vscode-typescript-vue-plugin",
+		"hollowtree.vue-snippets",
+		"vue.volar",
+		"voorjaar.windicss-intellisense",
+		"antfu.iconify"
+	]
+}

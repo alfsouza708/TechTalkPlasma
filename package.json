@@ -1,0 +1,69 @@
+{
+	"name": "plasma",
+	"version": "1.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "yarn upgrade-girassol && nuxi dev",
+		"build": "nuxi build",
+		"start": "node .output/server/index.mjs",
+		"lint": "eslint --ext .js,.ts .",
+		"prepare": "husky install",
+		"generate": "graphql-codegen",
+		"commit": "git-cz",
+		"upgrade-girassol": "yarn upgrade @solfacil/girassol --latest"
+	},
+	"dependencies": {
+		"@apollo/client": "^3.5.10",
+		"@graphql-codegen/cli": "^2.6.2",
+		"@graphql-codegen/typescript": "^2.4.8",
+		"@graphql-codegen/typescript-operations": "^2.3.5",
+		"@graphql-codegen/typescript-vue-apollo": "^3.2.9",
+		"@graphql-codegen/typescript-vue-apollo-smart-ops": "^2.2.8",
+		"@mdi/font": "^6.5.95",
+		"@pinia/nuxt": "^0.1.8",
+		"@sentry/tracing": "^6.19.4",
+		"@sentry/vue": "^6.19.4",
+		"@solfacil/girassol": "^0.1.10",
+		"@vue/apollo-composable": "^4.0.0-alpha.16",
+		"@vuelidate/core": "^2.0.0-alpha.35",
+		"@vuelidate/validators": "^2.0.0-alpha.27",
+		"date-fns": "^2.28.0",
+		"graphql": "^16.5.0",
+		"pinia": "^2.0.12",
+		"secure-ls": "^1.2.6",
+		"vue-apollo": "^3.1.0",
+		"vue-the-mask": "^0.11.1"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^16.2.3",
+		"@commitlint/config-conventional": "^16.2.1",
+		"@iconify-json/mi": "^1.1.1",
+		"@intlify/nuxt3": "^0.1.10",
+		"@rollup/plugin-graphql": "^1.1.0",
+		"@typescript-eslint/eslint-plugin": "^5.18.0",
+		"@typescript-eslint/parser": "^5.18.0",
+		"@vue/compiler-sfc": "^3.2.33",
+		"@vue/eslint-config-standard": "^6.1.0",
+		"commitizen": "^4.2.4",
+		"cz-conventional-changelog": "3.3.0",
+		"eslint": "^8.12.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-nuxt": "^3.2.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-vue": "^8.6.0",
+		"husky": "^7.0.4",
+		"nuxt": "3.0.0-rc.4",
+		"nuxt-windicss": "^2.2.8",
+		"prettier": "^2.6.2",
+		"sass": "^1.49.9",
+		"sass-loader": "^12.6.0",
+		"tsconfig-paths": "^4.0.0",
+		"typescript": "^4.6.3",
+		"unplugin-icons": "^0.14.3"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	}
+}
