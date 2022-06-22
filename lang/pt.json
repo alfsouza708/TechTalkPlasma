@@ -4,5 +4,10 @@
 	"email": "e-mail",
 	"password": "senha",
 	"plasma_welcome": "Bem vindo ao Plasma!",
-	"learn_plasma": "Saiba mais"
+	"learn_plasma": "Saiba mais",
+	"title": "Título",
+	"description": "Descrição",
+	"options": "Opções",
+	"create": "Criar",
+	"edit": "Editar"
 }
