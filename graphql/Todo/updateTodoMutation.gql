@@ -1,7 +1,0 @@
-mutation UpdateTodo($updateTodoId: Int!, $todo: TodoUpdate) {
-	updateTodo(id: $updateTodoId, todo: $todo) {
-		id
-		title
-		description
-	}
-}
