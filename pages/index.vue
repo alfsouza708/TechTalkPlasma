@@ -1,16 +1,10 @@
 <script setup lang="ts">
 // Imports
-import IconEdit from '@icons/mi/edit';
 import IconDelete from '@icons/mi/delete';
-
-// State
-const state = reactive({ editTodoId: null, isEdit: false });
 
 // Read
 
 // Create
-
-// Update
 
 // Delete
 </script>
@@ -18,8 +12,8 @@ const state = reactive({ editTodoId: null, isEdit: false });
 <template>
 	<div id="content">
 		<form @submit.prevent="">
-			<SolTextfield id="create-title" label="title" invert />
-			<SolTextfield id="create-description" label="description" invert />
+			<SolTextfield id="create-title" :label="$t('title')" invert />
+			<SolTextfield id="create-description" :label="$t('description')" invert />
 			<SolButton id="create-insert" type="submit"> {{ $t('create') }} </SolButton>
 		</form>
 
@@ -37,9 +31,6 @@ const state = reactive({ editTodoId: null, isEdit: false });
 						<td></td>
 						<td></td>
 						<td class="options">
-							<SolButton id="edit" variant="flat" invert dense>
-								<IconEdit />
-							</SolButton>
 							<SolButton id="delete" variant="flat" invert dense>
 								<IconDelete />
 							</SolButton>
@@ -74,9 +65,9 @@ const state = reactive({ editTodoId: null, isEdit: false });
 
 			td {
 				@apply border-neutral-high-light border-sm;
-				&.options {
-					display: flex;
-					justify-content: center;
+
+				> * {
+					margin: auto;
 				}
 			}
 		}
