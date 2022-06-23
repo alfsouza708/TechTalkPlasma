@@ -1,19 +1,115 @@
 <script setup lang="ts">
 // Imports
 import IconDelete from '@icons/mi/delete';
+import IconEdit from '@icons/mi/edit';
+import {
+	ListTodosDocument,
+	TodoUpdate,
+	Todo,
+	TodoInsert,
+	useDeleteTodoMutation,
+	useUpdateTodoMutation,
+	useInsertTodoMutation,
+	useListTodosQuery
+} from '~~/@types/generated';
 
 // Read
 
+const { result: listTodosResult } = useListTodosQuery();
+
+const todos = computed(() => listTodosResult.value.listTodos ?? []);
+
 // Create
 
+const newTodo = reactive<TodoInsert>({
+	title: '',
+	description: ''
+});
+
+const { mutate: insertTodoMutate } = useInsertTodoMutation({
+	refetchQueries: [
+		{
+			query: ListTodosDocument
+		}
+	]
+});
+
+const insertNewTodo = () => {
+	if (newTodo.title && newTodo.description) insertTodoMutate({ todo: newTodo });
+};
+
 // Delete
+
+const { mutate: deleteTodoMutate } = useDeleteTodoMutation({
+	update(cache, { data: { deleteTodo } }) {
+		cache.evict({ id: `${deleteTodo.__typename}:${deleteTodo.id}` });
+		cache.gc();
+	}
+});
+
+const deleteTodo = (id: Todo['id']) => {
+	deleteTodoMutate({ deleteTodoId: id });
+};
+
+// Update
+
+const state = reactive({ editTodoId: null, isEdit: false });
+const editTodo = reactive<TodoUpdate>({
+	title: '',
+	description: ''
+});
+
+const { mutate: mutateUpdateTodo } = useUpdateTodoMutation({});
+
+const handleEditForm = (todo: Todo) => {
+	state.isEdit = true;
+
+	state.editTodoId = todo.id;
+	editTodo.title = todo.title;
+	editTodo.description = todo.description;
+};
+
+const editSubmitTodo = () => {
+	if (state.editTodoId > 0 && editTodo.title && editTodo.description) {
+		mutateUpdateTodo({
+			updateTodoId: state.editTodoId,
+			todo: editTodo
+		});
+		state.isEdit = false;
+	}
+};
 </script>
 
 <template>
 	<div id="content">
-		<form @submit.prevent="">
-			<SolTextfield id="create-title" :label="$t('title')" invert />
-			<SolTextfield id="create-description" :label="$t('description')" invert />
+		<form v-if="state.isEdit" @submit.prevent="editSubmitTodo">
+			<SolTextfield
+				id="edit-title"
+				v-model="editTodo.title"
+				:label="$t('title')"
+				invert
+			/>
+			<SolTextfield
+				id="edit-description"
+				v-model="editTodo.description"
+				:label="$t('description')"
+				invert
+			/>
+			<SolButton id="insert" type="submit"> {{ $t('edit') }} </SolButton>
+		</form>
+		<form v-else @submit.prevent="insertNewTodo">
+			<SolTextfield
+				id="create-title"
+				v-model="newTodo.title"
+				:label="$t('title')"
+				invert
+			/>
+			<SolTextfield
+				id="create-description"
+				v-model="newTodo.description"
+				:label="$t('description')"
+				invert
+			/>
 			<SolButton id="create-insert" type="submit"> {{ $t('create') }} </SolButton>
 		</form>
 
@@ -26,13 +122,28 @@ import IconDelete from '@icons/mi/delete';
 			</thead>
 			<ClientOnly>
 				<tbody>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
+					<tr v-for="(todo, index) in todos" :key="`todo-n${index}`">
+						<td>{{ todo.id }}</td>
+						<td>{{ todo.title }}</td>
+						<td>{{ todo.description }}</td>
 						<td class="options">
-							<SolButton id="delete" variant="flat" invert dense>
+							<SolButton
+								id="delete"
+								variant="flat"
+								invert
+								dense
+								@click="deleteTodo(todo.id)"
+							>
 								<IconDelete />
+							</SolButton>
+							<SolButton
+								id="edit"
+								variant="flat"
+								invert
+								dense
+								@click="handleEditForm(todo)"
+							>
+								<IconEdit />
 							</SolButton>
 						</td>
 					</tr>

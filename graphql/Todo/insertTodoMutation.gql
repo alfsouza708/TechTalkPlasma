@@ -1,0 +1,7 @@
+mutation InsertTodo($todo: TodoInsert) {
+	insertTodo(todo: $todo) {
+		id
+		title
+		description
+	}
+}

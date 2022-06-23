@@ -1,4 +1,4 @@
-schema: 'https://localhost:8080/graphql'
+schema: 'https://todo-solfacil-server.herokuapp.com/graphql'
 documents: './graphql/**/*.gql'
 require:
  - ts-node/register
